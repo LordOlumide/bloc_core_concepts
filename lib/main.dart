@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'logic/utility/app_bloc_observer.dart';
 import 'logic/cubits/internet_cubit.dart';
 import 'logic/cubits/counter_cubit.dart';
 
@@ -12,6 +13,8 @@ void main() async {
 
   final storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
+
+  Bloc.observer = AppBlocObserver();
 
   HydratedBlocOverrides.runZoned(
     () => runApp(

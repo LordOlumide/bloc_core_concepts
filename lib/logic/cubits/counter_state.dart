@@ -10,6 +10,10 @@ class CounterState extends Equatable {
   });
 
   @override
+  String toString() =>
+      'CounterState(counterValue: $counterValue, wasIncremented: $wasIncremented)';
+
+  @override
   List<Object?> get props => [counterValue, wasIncremented];
 
   Map<String, dynamic> toMap() {
@@ -24,8 +28,8 @@ class CounterState extends Equatable {
         wasIncremented: map['wasINcremented'],
       );
 
-  // String toJson() => json.encode(toMap());
-  //
-  // factory CounterState.fromJson(String source) =>
-  //     CounterState.fromMap(json.decode(source));
+// String toJson() => json.encode(toMap());
+//
+// factory CounterState.fromJson(String source) =>
+//     CounterState.fromMap(json.decode(source));
 }
