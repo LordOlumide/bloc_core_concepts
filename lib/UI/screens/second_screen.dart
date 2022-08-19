@@ -1,22 +1,25 @@
 import "package:flutter/material.dart";
-import 'cubits/counter_cubit.dart';
+import '../../logic/cubits/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterScreen extends StatefulWidget {
-  const CounterScreen({Key? key, required this.title}) : super(key: key);
+class SecondScreen extends StatefulWidget {
+  const SecondScreen({Key? key, required this.title, required this.color})
+      : super(key: key);
 
   final String title;
+  final Color color;
 
   @override
-  State<CounterScreen> createState() => _CounterScreenState();
+  State<SecondScreen> createState() => _SecondScreenState();
 }
 
-class _CounterScreenState extends State<CounterScreen> {
+class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: widget.color,
       ),
       body: Center(
         child: Column(
@@ -58,6 +61,7 @@ class _CounterScreenState extends State<CounterScreen> {
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).decrement();
                   },
+                  backgroundColor: widget.color,
                   child: const Icon(Icons.exposure_minus_1),
                 ),
                 const SizedBox(width: 30),
@@ -65,6 +69,7 @@ class _CounterScreenState extends State<CounterScreen> {
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).increment();
                   },
+                  backgroundColor: widget.color,
                   child: const Icon(Icons.plus_one),
                 ),
               ],
