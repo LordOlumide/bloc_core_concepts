@@ -1,23 +1,25 @@
-import 'package:bloc_core_concepts/UI/screens/second_screen.dart';
 import "package:flutter/material.dart";
 import '../../logic/cubits/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FirstScreen extends StatefulWidget {
-  const FirstScreen({Key? key, required this.title}) : super(key: key);
+class ThirdScreen extends StatefulWidget {
+  const ThirdScreen({Key? key, required this.title, required this.color})
+      : super(key: key);
 
   final String title;
+  final Color color;
 
   @override
-  State<FirstScreen> createState() => _FirstScreenState();
+  State<ThirdScreen> createState() => _ThirdScreenState();
 }
 
-class _FirstScreenState extends State<FirstScreen> {
+class _ThirdScreenState extends State<ThirdScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: widget.color,
       ),
       body: Center(
         child: Column(
@@ -60,6 +62,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).decrement();
                   },
+                  backgroundColor: widget.color,
                   child: const Icon(Icons.exposure_minus_1),
                 ),
                 const SizedBox(width: 30),
@@ -68,23 +71,10 @@ class _FirstScreenState extends State<FirstScreen> {
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).increment();
                   },
+                  backgroundColor: widget.color,
                   child: const Icon(Icons.plus_one),
                 ),
               ],
-            ),
-            const SizedBox(height: 30),
-            MaterialButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/second');
-              },
-              child: const Text('Go to second screen'),
-            ),
-            const SizedBox(height: 30),
-            MaterialButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/third');
-              },
-              child: const Text('Go to third screen'),
             ),
           ],
         ),
