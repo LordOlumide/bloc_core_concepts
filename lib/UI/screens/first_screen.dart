@@ -1,4 +1,5 @@
-import 'package:bloc_core_concepts/UI/screens/second_screen.dart';
+import 'package:bloc_core_concepts/constants/enums.dart';
+import 'package:bloc_core_concepts/logic/cubits/internet_cubit.dart';
 import "package:flutter/material.dart";
 import '../../logic/cubits/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,33 @@ class _FirstScreenState extends State<FirstScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Internet availability display
+            BlocBuilder<InternetCubit, InternetState>(
+              bloc: BlocProvider.of<InternetCubit>(context),
+              builder: (context, state) {
+                if (state is InternetConnected &&
+                    state.connectionType == ConnectivityType.Mobile) {
+                  return const Text(
+                    'Internet - Mobile',
+                    style: TextStyle(fontSize: 30),
+                  );
+                } else if (state is InternetConnected &&
+                    state.connectionType == ConnectivityType.Wifi) {
+                  return const Text(
+                    'Internet - Wi-Fi',
+                    style: TextStyle(fontSize: 30),
+                  );
+                } else if (state is InternetDisconnected) {
+                  return const Text(
+                    'No Internet',
+                    style: TextStyle(fontSize: 30),
+                  );
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
+
+            // Text display
             const Text(
               'You have pushed the button this many times:',
             ),
@@ -51,6 +79,8 @@ class _FirstScreenState extends State<FirstScreen> {
                 );
               },
             ),
+
+            // Add and subtract buttons
             Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -73,6 +103,8 @@ class _FirstScreenState extends State<FirstScreen> {
               ],
             ),
             const SizedBox(height: 30),
+
+            // Push to second screen button
             MaterialButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/second');
@@ -80,6 +112,8 @@ class _FirstScreenState extends State<FirstScreen> {
               child: const Text('Go to second screen'),
             ),
             const SizedBox(height: 30),
+
+            // push to third screen button
             MaterialButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/third');
