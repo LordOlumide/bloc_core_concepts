@@ -1,3 +1,4 @@
+import 'package:bloc_core_concepts/UI/routing/app_router.dart';
 import 'package:bloc_core_concepts/UI/screens/second_screen.dart';
 import 'package:bloc_core_concepts/UI/screens/third_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,15 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AppRouter _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +30,14 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         initialRoute: '/',
-        routes: {
-          '/': (context) => const FirstScreen(title: 'First screen'),
-          '/second': (context) =>
-              const SecondScreen(title: 'Second screen', color: Colors.red),
-          '/third': (context) =>
-              const ThirdScreen(title: 'Third screen', color: Colors.grey),
-        },
+        onGenerateRoute: _appRouter.onGenerateRoute,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _appRouter.dispose();
+    super.dispose();
   }
 }
